@@ -1,6 +1,6 @@
 <div align="center">
     <img alt="nestjs-tracing" width="250" height="auto" src="https://camo.githubusercontent.com/c704e8013883cc3a04c7657e656fe30be5b188145d759a6aaff441658c5ffae0/68747470733a2f2f6e6573746a732e636f6d2f696d672f6c6f676f5f746578742e737667" />
-    <h3>NestJS - Health Checks</h3>
+    <h3>NestJS - TypeOrm Database</h3>
 </div>
 
 <p align="center">
@@ -15,7 +15,7 @@
     <br/>
 </p>
 
-Esta dependencia está pensada para ser utilizada en [NestJs Starter](https://github.com/rudemex/nestjs-starter), o 
+Esta dependencia está pensada para ser utilizada en [NestJs Starter](https://github.com/rudemex/nestjs-starter), o
 cualquier proyecto que utilice una configuración centralizada, siguiendo la misma arquitectura del starter.
 
 ## Glosario
@@ -44,19 +44,80 @@ cualquier proyecto que utilice una configuración centralizada, siguiendo la mis
 ## 🛠️ Instalar dependencia
 
 ```
-npm install @tresdoce/nestjs-tracing
+npm install @tresdoce/nestjs-typeorm
 ```
 
 <a name="configurations"></a>
 
 ## ⚙️ Configuración
 
-Para excluir los paths `/liveness` y `/readiness` hay que ajustar el `setGlobalPrefix` agregando los options exclude que exporta la dependencia.
+Agregar los datos de conexión a typeorm desde el configuration.ts utilizando el key database que contenga el objeto typeorm que obtenga los datos desde las variables de entorno, que es del tipo `TypeOrmModuleOptions` que proviene del módulo `@nestjs/typeorm`.
 
 ```typescript
-// .src/main.ts
+// ./src/config/configuration.ts
+import { registerAs } from '@nestjs/config';
+
+export default registerAs('config', () => {
+  return {
+    ...
+    database: {
+      typeorm: {
+        type: process.env.TYPE_ORM_DRIVER,
+        host: process.env.TYPE_ORM_HOST,
+        username: process.env.TYPE_ORM_USER,
+        password: process.env.TYPE_ORM_PASSWORD,
+        database:  process.env.TYPE_ORM_DATABASE,
+        port: parseInt(process.env.TYPE_ORM__PORT, 10),
+      },
+    },
+    ...
+  };
+});
 
 ```
+
+Una vez agregada la configuración, solo basta con importar el módulo en el archivo `app.module.ts`, y el módulo se encargará de obtener la configuración automaticamente.
+Para ver más a detalle la configuración podes verlo desde la documentación oficial de typeorm [`data source options`](https://typeorm.io/data-source-options).
+
+```typescript
+// ./src/app.module.ts
+import { TypeOrmClientModule } from '@tresdoce/nestjs-typeorm';
+
+@Module({
+    ...
+    imports: [
+      ...
+      TypeOrmClientModule,
+      ...
+    ],
+    ...
+})
+export class AppModule {}
+```
+
+Para la inyección de `Schemas` se utiliza la propiedad `forFeature` del módulo enviando las `entity` como un array de objetos.
+
+```typescript
+import {  Cat, CatSchema  } from './entities/cat.entity';
+import { TypeOrmClientModule } from '@tresdoce/nestjs-typeorm';
+
+@module({
+  imports:[
+    ...
+    TypeOrmClientModule.forFeature([
+      {
+        name: Cat.name,
+        schema: CatSchema
+      }
+    ])
+    ...
+  ],
+  ...
+})
+export class CatsModule {}
+```
+
+> 💬 Para más información, podés consultar la documentación oficial de NestJs
 
 <a name="commits"></a>
 

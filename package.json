@@ -1,7 +1,7 @@
 {
-  "name": "@tresdoce/nestjs-tracing",
+  "name": "@tresdoce/nestjs-typeorm",
   "version": "0.0.1",
-  "description": "NestJS tracing module",
+  "description": "NestJS typeorm module",
   "author": {
     "name": "Maximiliano \"Mex\" Delgado",
     "email": "mdelgado@tresdoce.com.ar",
@@ -13,18 +13,18 @@
   },
   "keywords": [
     "nestjs",
-    "tracing",
-    "jaeger"
+    "typeorm",
+    "database"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tresdoce/nestjs-tracing.git"
+    "url": "git+https://github.com/tresdoce/nestjs-typeorm.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tresdoce/nestjs-tracing/issues"
+    "url": "https://github.com/tresdoce/nestjs-typeorm/issues"
   },
-  "homepage": "https://github.com/tresdoce/nestjs-tracing#readme",
+  "homepage": "https://github.com/tresdoce/nestjs-typeorm#readme",
   "private": false,
   "scripts": {
     "prebuild": "shx rm -rf pkg",
@@ -37,20 +37,45 @@
     "release": "standard-version"
   },
   "peerDependencies": {
-    "@nestjs/common": "^8.1.2",
-    "@nestjs/core": "^8.1.2",
-    "@nestjs/platform-express": "^8.1.2",
+    "@nestjs/common": "^8.2.0",
+    "@nestjs/config": "^2.0.0",
+    "@nestjs/core": "^8.2.0",
+    "@nestjs/platform-express": "^8.2.0",
+    "@nestjs/typeorm": "^8.0.3",
+    "@sap/hana-client": "^2.12.20",
+    "hdb-pool": "^0.1.6",
+    "lodash": "^4.17.21",
+    "mongodb": "^3.7.3",
+    "mssql": "^8.0.2",
+    "mysql": "^2.18.1",
+    "oracledb": "^5.3.0",
+    "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.4.0"
+    "rxjs": "^7.4.0",
+    "sql.js": "^1.6.2",
+    "sqlite3": "^5.0.2",
+    "typeorm": "^0.2.45"
   },
   "dependencies": {
     "@nestjs/common": "^8.2.0",
+    "@nestjs/config": "^2.0.0",
     "@nestjs/core": "^8.2.0",
     "@nestjs/platform-express": "^8.2.0",
+    "@nestjs/typeorm": "^8.0.3",
+    "@sap/hana-client": "^2.12.20",
+    "hdb-pool": "^0.1.6",
     "lodash": "^4.17.21",
+    "mongodb": "^3.7.3",
+    "mssql": "^8.0.2",
+    "mysql": "^2.18.1",
+    "oracledb": "^5.3.0",
+    "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.4.0",
-    "shx": "^0.3.3"
+    "shx": "^0.3.3",
+    "sql.js": "^1.6.2",
+    "sqlite3": "^5.0.2",
+    "typeorm": "^0.2.45"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
